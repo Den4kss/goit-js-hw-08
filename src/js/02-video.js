@@ -21,5 +21,5 @@ player.on(
   'play',
   throttle(function (data) {
     localStorage.setItem('videoplayer-current-time', data.seconds);
-  }, 100)
+  }, 1000)
 );
