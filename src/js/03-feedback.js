@@ -18,7 +18,7 @@ refs.form.addEventListener(
 );
 function onFormSubmit(evt) {
   evt.preventDefault();
-  evt.currentTarget.reset();
+  evt.target.reset();
   localStorage.removeItem('feedback-form-state');
 }
 
