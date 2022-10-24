@@ -17,8 +17,9 @@ player
         break;
     }
   });
+
 player.on(
-  'play',
+  'timeupdate',
   throttle(function (data) {
     localStorage.setItem('videoplayer-current-time', data.seconds);
   }, 1000)

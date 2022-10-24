@@ -7,7 +7,13 @@ const refs = {
 
 refs.form.addEventListener('submit', onFormSubmit);
 
-const formData = {};
+const formData = { email: '', message: '' };
+
+function onFormSubmit(evt) {
+  evt.preventDefault();
+  evt.target.reset();
+  localStorage.removeItem('feedback-form-state');
+}
 
 refs.form.addEventListener(
   'input',
@@ -16,11 +22,6 @@ refs.form.addEventListener(
     localStorage.setItem('feedback-form-state', JSON.stringify(formData));
   }, 500)
 );
-function onFormSubmit(evt) {
-  evt.preventDefault();
-  evt.target.reset();
-  localStorage.removeItem('feedback-form-state');
-}
 
 populateTextarea();
 function populateTextarea() {
