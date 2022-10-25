@@ -8,16 +8,22 @@ const refs = {
 let formData = {};
 let savedForm = localStorage.getItem('feedback-form-state');
 
-refs.form.addEventListener('submit', onFormSubmit);
-
-function onFormSubmit(evt) {
-  evt.preventDefault();
-  localStorage.clear();
-  refs.input.value = '';
-  refs.message.value = '';
-  formData = {};
+if (savedForm) {
+  const data = JSON.parse(savedForm);
+  populateTextarea(data);
 }
 
+function populateTextarea(data) {
+  const { email, message } = data;
+  if (data.hasOwnProperty('email')) {
+    refs.input.value = email;
+    formData.email = email;
+  }
+  if (data.hasOwnProperty('message')) {
+    refs.message.value = message;
+    formData.message = message;
+  }
+}
 refs.form.addEventListener(
   'input',
   throttle(function (event) {
@@ -36,19 +42,12 @@ refs.form.addEventListener(
   }, 500)
 );
 
-if (savedForm) {
-  const data = JSON.parse(savedForm);
-  populateTextarea(data);
+function onFormSubmit(evt) {
+  evt.preventDefault();
+  console.log(formData);
+  localStorage.clear();
+  refs.input.value = '';
+  refs.message.value = '';
+  formData = {};
 }
-
-function populateTextarea(data) {
-  const { email, message } = data;
-  if (data.hasOwnProperty('email')) {
-    refs.input.value = email;
-    formData.email = email;
-  }
-  if (data.hasOwnProperty('message')) {
-    refs.message.value = message;
-    formData.message = message;
-  }
-}
+refs.form.addEventListener('submit', onFormSubmit);
